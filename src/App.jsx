@@ -36,11 +36,10 @@ function App() {
     if (name && topic) {
       fetchApi({
         method,
-        endpoint: "/manga",
+        endpoint: method == "postF" ? "/manga" : `/manga/${id}`,
         options: {
           withCredentials: true,
           data: { name, topic },
-          params: { id },
         },
       }).then(() => {
         setName("");
@@ -77,6 +76,19 @@ function App() {
                 }}
               >
                 Update
+              </button>
+              
+              {/* For delete a manga  */}
+              <button
+                type="button"
+                onClick={() => {
+                  setName(manga.name);
+                  setTopic(manga.topic);
+                  setId(manga._id);
+                  setOperationNumber(3);
+                }}
+              >
+                Delete
               </button>
             </li>
           ))}
